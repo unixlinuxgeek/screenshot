@@ -16,10 +16,10 @@ import (
 )
 
 func main() {
-	err := screenshot.Capture()
-	if err != nil {
-		log.Fatal(err)
-	}
-    // do something...
+  err := screenshot.Capture()
+  if err != nil {
+    log.Fatal(err)
+  }
+  // do something...
 }
 ```
