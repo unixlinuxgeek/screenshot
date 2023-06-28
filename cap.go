@@ -1,6 +1,8 @@
 // Capture 1 frame from video
 // Захватываем 1 кадр из видео
-// example: ./cap /var/tmp/in.mp4 /var/tmp/out.jpg
+// ./cap <входной_видеофайл> <название_выходного_изображения>
+// example:
+// ./cap /var/tmp/in.mp4 /var/tmp/out.jpg
 
 package screenshot
 
@@ -11,7 +13,7 @@ import (
 	"os/exec"
 )
 
-func Capture() error {
+func Capture() (error, string) {
 	args := os.Args
 	if len(args) == 4 {
 		vidName := args[1]
@@ -19,7 +21,7 @@ func Capture() error {
 		f, err := os.OpenFile(vidName, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 777)
 		err = f.Close()
 		if err != nil {
-			return err
+			return err, ""
 		}
 
 		app := "/usr/bin/ffmpeg"
@@ -42,8 +44,8 @@ func Capture() error {
 		if err != nil {
 			log.Fatal(err)
 		}
-		return nil
+		return nil, imgName
 	} else {
-		return fmt.Errorf("Введите название видеофайла и выходного изображения!!!\n")
+		return fmt.Errorf("Введите название видеофайла и выходного изображения!!!\n"), ""
 	}
 }
